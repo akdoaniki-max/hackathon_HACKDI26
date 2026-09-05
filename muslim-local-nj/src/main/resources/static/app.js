@@ -10,9 +10,14 @@ const map = L.map("map", {
 	maxBoundsViscosity: 0.75
 });
 
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-	maxZoom: 19,
-	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+// Waze-style basemap. Waze keeps its own map tiles private, so we use Stadia's
+// "OSM Bright" style: OpenStreetMap road data drawn the way a navigation app
+// draws it - cream land, yellow roads, blue water, few labels. Much less
+// cluttered than the raw OpenStreetMap tiles, so our business pins stand out.
+// No API key needed while running on localhost. See README to swap styles.
+L.tileLayer("https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png", {
+	maxZoom: 20,
+	attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
 const markers = L.layerGroup().addTo(map);
